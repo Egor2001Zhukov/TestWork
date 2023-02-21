@@ -1,3 +1,4 @@
+# Основной файл приложения
 from flask import Flask
 from flask_cors import CORS
 from flask_restx import Api
@@ -8,13 +9,14 @@ from app.db_setup import db
 from app.views.framework import framework_ns
 
 
+# Метод создания приложения и его конфигурации
 def create_app(config_object) -> Flask:
     application = Flask(__name__)
     application.config.from_object(config_object)
     application.app_context().push()
     return application
 
-
+# Инициализируем базу данных в приложении и проектируем RESTful API
 def configure_app(application):
     db.init_app(application)
     api = Api(application)
@@ -22,24 +24,12 @@ def configure_app(application):
     CORS(application)
 
 
-# pk  name      language
-# -------------------------
-# 1   React     Javascript
-# 2   Vue       Javascript
-# 3   FastApi   Python
-# 4   Laravel   PHP
-# 5   Spring    Java
-
-
-
-
-
-
+# Старт приложения
 if __name__ == '__main__':
     app_config = Config()
     app = create_app(app_config)
     configure_app(app)
-
+    # Добавляем элементы в бд
     with app.app_context():
         db.create_all()
         db.session.add(FrameworkModel(name='React', language='Javascript'))

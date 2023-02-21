@@ -1,3 +1,4 @@
+# Создаю обьекты моделей для работы с ними
 from app.dao.frameworkDAO import FrameworkDAO
 from app.dao.model.framework import FrameworkSchema
 from app.db_setup import db
